@@ -1,12 +1,15 @@
 // dynamic-ranking-frontend/src/services/api.js
 import axios from 'axios';
 
+// --- CHANGE THIS LINE ---
+// Use process.env.REACT_APP_API_URL when deployed, fallback to localhost for local development
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const API = axios.create({
-    baseURL: 'http://localhost:5000/api' // Base URL for your backend API
+    baseURL: API_BASE_URL, // Now it uses the dynamic URL
 });
 
-export const getUsers = () => API.get('/users');
-export const addUser = (username) => API.post('/users', { username });
-export const claimPoints = (userId) => API.post(`/claim-points/${userId}`);
-// Optional: If you implement initialize-users button in frontend
-export const initializeUsers = () => API.post('/initialize-users');
+export const getUsers = () => API.get('/api/users'); // Ensure /api is here if your backend routes are prefixed
+export const addUser = (username) => API.post('/api/users', { username });
+export const claimPoints = (userId) => API.post(`/api/claim-points/${userId}`);
+export const initializeUsers = () => API.post('/api/initialize-users');
